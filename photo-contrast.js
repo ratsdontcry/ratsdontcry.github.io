@@ -1,5 +1,5 @@
 // About page: the photo fills the window (background-size: cover, centred,
-// fixed), so what sits behind Works / Contact depends on the window size.
+// fixed), so what sits behind Works / Info depends on the window size.
 // Read how bright the photo is behind each link and switch the link to
 // porcelain white when that part is dark.
 const PHOTO = 'yinuo%20xuanyuan/IMG_2500.JPG';
@@ -32,7 +32,7 @@ photo.onload = () => {
 
   function update() {
     try {
-      // judge Works and Contact together so they always share one colour
+      // judge Works and Info together so they always share one colour
       const box = document.querySelector('.site-nav').getBoundingClientRect();
       const dark = brightnessBehind(box) < 140;
       links.forEach(link => link.classList.toggle('on-dark', dark));

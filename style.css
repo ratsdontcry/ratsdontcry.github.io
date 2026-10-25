@@ -9,6 +9,7 @@
   /* Fixed sizes, taken from the layout at a ~706px-wide window: making the
      window bigger leaves everything as it is, only adds empty space. */
   --gutter: 28px;
+  --space: 14px; /* top margin of the page; also used between nav and pictures, and between pictures */
   --serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
   --serif-cn: "Noto Serif SC", "Songti SC", "STSong", serif;
   --sans: "Source Sans 3", "Source Han Sans SC", "Helvetica Neue", Arial, sans-serif;
@@ -43,7 +44,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: space-between;
   align-items: baseline;
   gap: 18px;
-  padding: 14px var(--gutter);
+  padding: var(--space) 16px; /* closer to the window edges than the pictures */
   font-family: var(--sans);
   font-size: 12.5px;
   font-weight: 400;
@@ -63,8 +64,8 @@ a { color: inherit; text-decoration: none; }
 .works {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 42px var(--gutter);
+  gap: var(--space);
+  padding: 0 var(--gutter) 42px;
 }
 /* fixed widths; they only shrink on screens too narrow to fit them */
 .work-item { display: block; width: min(435px, 67%); }
@@ -74,11 +75,11 @@ a { color: inherit; text-decoration: none; }
 .stills {
   display: grid;
   grid-template-columns: minmax(0, 578px);
-  gap: 10px;
-  padding: 42px var(--gutter) 56px;
+  gap: var(--space);
+  padding: 0 var(--gutter) 56px;
 }
 
-/* ---------- Blank pages (About / Contact, content to come) ---------- */
+/* ---------- Blank pages (Info page, content to come) ---------- */
 .blank-page { min-height: calc(100vh - 60px); }
 
 /* ---------- About page: the photo is the whole background, no colour ---------- */
