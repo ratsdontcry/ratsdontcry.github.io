@@ -6,3 +6,9 @@
 works/jpg/what the hair?/IMG_0548.JPG
 works/jpg/告诉我,尽管词不达意/影片海报 .jpg
 works/jpg/告诉我,尽管词不达意/剧照/Screenshot 2026-10-15 at 16.28.02.png
+
+# agent / AI handover notes: local-only, never publish
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+*.local.md
