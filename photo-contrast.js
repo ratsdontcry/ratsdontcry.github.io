@@ -1,4 +1,4 @@
-// About page: the photo fills the window (background-size: cover, centred,
+// Home and Info pages: the photo fills the window (background-size: cover, centred,
 // fixed), so what sits behind Works / Info depends on the window size.
 // Read how bright the photo is behind each link and switch the link to
 // porcelain white when that part is dark.

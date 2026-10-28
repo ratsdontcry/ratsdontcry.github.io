@@ -29,7 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Works page sits on off-white instead of the blue */
+/* Work detail pages (pictures) sit on off-white */
 body.page-works { background: #fafafa; }
 
 img { display: block; max-width: 100%; height: auto; }
@@ -51,7 +51,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 
-.site-id { display: flex; flex-direction: column; }
+.site-id { display: flex; flex-direction: column; gap: 10px; } /* gap keeps the email / work titles from being mis-clicked as the name */
 
 .site-nav { display: flex; gap: 21px; }
 .site-header a { transition: color 0.2s; }
@@ -60,33 +60,24 @@ a { color: inherit; text-decoration: none; }
 .site-header a:hover { color: #fff; }
 .page-works .site-header a:hover { color: #5fb4f5; }
 
-/* ---------- Works page: one image per work, stacked ---------- */
-.works {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space);
-  padding: 0 var(--gutter) 42px;
-}
-/* fixed widths; they only shrink on screens too narrow to fit them */
-.work-item { display: block; width: min(435px, 67%); }
-.work-item.work-wide { width: min(650px, 100%); }
+/* ---------- Works page: one line of text per work, right under the name ---------- */
+.work-list { list-style: none; }
 
-/* ---------- Film page: stills ---------- */
+/* ---------- Work detail pages: pictures stacked ---------- */
 .stills {
   display: grid;
   grid-template-columns: minmax(0, 578px);
   gap: var(--space);
   padding: 0 var(--gutter) 56px;
 }
+/* the film poster sits above the stills at the size it had on the old Works page */
+.stills .poster { width: min(435px, 100%); }
 
-/* ---------- Blank pages (Info page, content to come) ---------- */
-.blank-page { min-height: calc(100vh - 60px); }
-
-/* ---------- About page: the photo is the whole background, no colour ---------- */
-html.page-about {
+/* ---------- Home and Info pages: the photo is the whole background, no colour ---------- */
+html.page-photo {
   min-height: 100%;
   background: url("yinuo%20xuanyuan/IMG_2500.JPG") center / cover no-repeat fixed;
 }
-.page-about body { background: none; }
+.page-photo body { background: none; }
 /* name in porcelain white, sampled from the plate in the photo */
-.page-about .site-id a { color: #eceae4; }
+.page-photo .site-id a { color: #eceae4; }
