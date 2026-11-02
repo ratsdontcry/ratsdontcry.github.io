@@ -83,6 +83,11 @@ a { color: inherit; text-decoration: none; }
   gap: var(--space);
   padding: 0 var(--gutter) 56px;
 }
+/* on a window wide enough for two pictures (2 x 578px + gap + margins),
+   these pictures sit next to each other instead of stacked */
+@media (min-width: 1202px) {
+  .stills.side-by-side { grid-template-columns: repeat(2, 578px); }
+}
 /* the film poster sits above the stills at the size it had on the old Works page */
 .stills .poster { width: min(435px, 100%); }
 
