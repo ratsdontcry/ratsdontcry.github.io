@@ -87,6 +87,7 @@ a { color: inherit; text-decoration: none; }
    these pictures sit next to each other instead of stacked */
 @media (min-width: 1202px) {
   .stills.side-by-side { grid-template-columns: repeat(2, 578px); }
+  .stills.side-by-side .poster { grid-column: 1 / -1; } /* poster keeps its own row */
 }
 /* the film poster sits above the stills at the size it had on the old Works page */
 .stills .poster { width: min(435px, 100%); }
