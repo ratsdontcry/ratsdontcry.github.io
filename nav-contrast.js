@@ -1,9 +1,9 @@
-// Switch the name (and the email under it, where there is one) to porcelain
-// white only while it sits on a dark part of a picture, where the dark gray
-// would disappear.
+// Switch the name, the nav links next to it (and the email under it, where
+// there is one) to porcelain white only while they sit on a dark part of a
+// picture, where the dark gray would disappear.
 // Dark parts are marked on each <img> with data-dark="from-to,from-to",
 // as fractions of the picture's height (0 = top edge, 1 = bottom edge).
-const labels = document.querySelectorAll('.site-id a');
+const labels = document.querySelectorAll('.site-id a, .site-nav a');
 const pictures = [...document.querySelectorAll('img[data-dark]')];
 
 function darkBands(img) {

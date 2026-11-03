@@ -40,10 +40,13 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
-  justify-content: space-between;
+  /* row 1: name, then works / info right after it; row 2: whatever sits
+     under the name (work titles, email) across the full width */
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   align-items: baseline;
-  gap: 18px;
+  column-gap: 21px;
+  row-gap: 10px; /* keeps the line under the name from being mis-clicked as the name */
   padding: var(--space) var(--gutter);
   font-family: var(--text);
   font-size: 12.5px;
@@ -51,7 +54,10 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 
-.site-id { display: flex; flex-direction: column; gap: 10px; } /* gap keeps the email / work titles from being mis-clicked as the name */
+.site-id { display: contents; }
+.site-name { grid-row: 1; grid-column: 1; }
+.site-nav { grid-row: 1; grid-column: 2; }
+.site-id > :not(.site-name) { grid-row: 2; grid-column: 1 / -1; }
 .site-name,
 .site-nav a { text-transform: lowercase; }
 .site-info { display: flex; flex-direction: column; }
@@ -76,6 +82,10 @@ a { color: inherit; text-decoration: none; }
 }
 .work-text h1 { font-size: inherit; font-weight: 400; margin-bottom: 10px; }
 .work-text p + p { margin-top: 10px; }
+/* a title with no description under it (captions sit on the pictures instead):
+   keep the same 10px gap to the next line as title-to-description elsewhere */
+.work-text h1:last-child { margin-bottom: 0; }
+.work-text:has(> h1:last-child) { padding-bottom: 10px; }
 
 /* ---------- Work detail pages: pictures stacked ---------- */
 .stills {
@@ -84,10 +94,35 @@ a { color: inherit; text-decoration: none; }
   gap: var(--space);
   padding: 0 var(--gutter) 56px;
 }
+
+/* a caption line above a picture, styled like the work description */
+.stills figcaption {
+  font-family: var(--text);
+  font-size: 12.5px;
+  margin-bottom: 10px;
+}
+/* song titles link to Spotify */
+.stills figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s;
+}
+.stills figcaption a:hover { color: #5fb4f5; }
+.stills figcaption a.is-playing { color: #5fb4f5; }
+/* Spotify player that opens under a song title */
+.song-player {
+  display: block;
+  width: 100%;
+  height: 80px;
+  border: 0;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
 /* on a window wide enough for two pictures (2 x 578px + gap + margins),
    these pictures sit next to each other instead of stacked */
 @media (min-width: 1202px) {
   .stills.side-by-side { grid-template-columns: repeat(2, 578px); }
+  .stills.side-by-side .poster { grid-column: 1 / -1; } /* poster keeps its own row */
 }
 /* the film poster sits above the stills, as wide as one still */
 .stills .poster { width: min(578px, 100%); }
