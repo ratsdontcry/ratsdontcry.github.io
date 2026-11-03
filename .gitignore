@@ -7,6 +7,7 @@
 works/jpg/what the hair?/
 works/jpg/告诉我,尽管词不达意/影片海报 .jpg
 works/jpg/告诉我,尽管词不达意/剧照/Screenshot 2026-10-15 at 16.28.02.png
+works/jpg/告诉我,尽管词不达意/IMG_8337.JPG
 
 # agent / AI handover notes: local-only, never publish
 CLAUDE.md
@@ -14,5 +15,5 @@ CLAUDE.local.md
 AGENTS.md
 *.local.md
 
-# font pack as downloaded; the site uses the copy in assets/fonts/
+# font pack as downloaded (not used by the site)
 DM_Sans/
