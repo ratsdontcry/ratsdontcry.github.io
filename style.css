@@ -133,7 +133,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Home and Info pages: the photo is the whole background, no colour ---------- */
 html.page-photo {
   min-height: 100%;
-  background: url("yinuo%20xuanyuan/IMG_2500.JPG") center / cover no-repeat fixed;
+  background: url("assets/background-breakfast.jpg") center / cover no-repeat fixed;
 }
 .page-photo body { background: none; }
 /* name in porcelain white, sampled from the plate in the photo */

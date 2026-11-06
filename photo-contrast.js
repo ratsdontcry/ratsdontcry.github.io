@@ -2,7 +2,7 @@
 // fixed), so what sits behind Works / Info depends on the window size.
 // Read how bright the photo is behind each link and switch the link to
 // porcelain white when that part is dark.
-const PHOTO = 'yinuo%20xuanyuan/IMG_2500.JPG';
+const PHOTO = 'assets/background-breakfast.jpg';
 const links = document.querySelectorAll('.site-nav a');
 
 const photo = new Image();
