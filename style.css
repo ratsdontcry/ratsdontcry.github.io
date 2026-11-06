@@ -72,6 +72,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Works page: one line of text per work, right under the name ---------- */
 .work-list { list-style: none; }
+.work-list li + li { margin-top: 6px; } /* a little air between work titles */
 
 /* ---------- Work detail pages: title and description above the pictures ---------- */
 .work-text {
@@ -101,13 +102,15 @@ a { color: inherit; text-decoration: none; }
   font-size: 12.5px;
   margin-bottom: 10px;
 }
-/* song titles link to Spotify */
-.stills figcaption a {
+/* links inside captions and descriptions (song titles to Spotify, exhibition names) */
+.stills figcaption a,
+.work-text a {
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.2s;
 }
-.stills figcaption a:hover { color: #5fb4f5; }
+.stills figcaption a:hover,
+.work-text a:hover { color: #5fb4f5; }
 .stills figcaption a.is-playing { color: #5fb4f5; }
 /* Spotify player that opens under a song title */
 .song-player {
