@@ -3,7 +3,11 @@
 // Read how bright the photo is behind each link and switch the link to
 // porcelain white when that part is dark.
 const PHOTO = 'assets/background-breakfast.jpg';
-const links = document.querySelectorAll('.site-nav a');
+// nav links and the Index link sit in different spots, so each group is judged on its own
+const groups = ['.site-nav', '.site-index']
+  .map(sel => document.querySelector(sel))
+  .filter(Boolean)
+  .map(box => ({ box, links: box.querySelectorAll(':scope > a') }));
 
 const photo = new Image();
 photo.src = PHOTO;
@@ -32,10 +36,11 @@ photo.onload = () => {
 
   function update() {
     try {
-      // judge Works and Info together so they always share one colour
-      const box = document.querySelector('.site-nav').getBoundingClientRect();
-      const dark = brightnessBehind(box) < 140;
-      links.forEach(link => link.classList.toggle('on-dark', dark));
+      // links in one group (works + info) always share one colour
+      groups.forEach(({ box, links }) => {
+        const dark = brightnessBehind(box.getBoundingClientRect()) < 140;
+        links.forEach(link => link.classList.toggle('on-dark', dark));
+      });
     } catch (e) {
       // the browser refuses to read the photo when the page is opened as a
       // local file; the links then just keep their normal colour

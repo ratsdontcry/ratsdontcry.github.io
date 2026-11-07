@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="page-photo">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,28 +9,128 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-works">
 
   <header class="site-header">
     <div class="site-id">
       <a class="site-name" href="index.html">Yinuo Xuanyuan</a>
-      <!-- 每个作品一行标题，紧接在名字下面（和 Info 页邮箱同样位置），点进去是作品详情页；新作品复制一行 <li> 即可 -->
-      <ul class="work-list">
-        <li><a href="the-uncircus.html">Album Covers</a></li>
-        <li><a href="midnight-ambiguous-zone.html">Midnight Ambiguous Zone, Poster</a></li>
-        <li><a href="diaspora-east-cinema.html">Diaspora East Cinema, Visual Identity</a></li>
-        <li><a href="what-the-hair.html">What the hair?</a></li>
-        <li><a href="tell-me.html">Tell me, though words fail to express it</a></li>
-        <li><a href="gossip-love.html">Gossip Love</a></li>
-        <li><a href="affairs.html">Affairs, Poster</a></li>
-      </ul>
     </div>
     <nav class="site-nav">
       <a href="works.html" aria-current="page">Works</a>
       <a href="info.html">Info</a>
     </nav>
+    <!-- 点 Index 展开所有作品标题，点标题滑到对应作品；新作品在这里也加一行 -->
+    <div class="site-index">
+      <a class="index-toggle" href="#index" aria-expanded="false">Index</a>
+      <ul class="index-list" id="index" hidden>
+        <li><a href="#the-uncircus">Album Covers</a></li>
+        <li><a href="#midnight-ambiguous-zone">Midnight Ambiguous Zone, Poster</a></li>
+        <li><a href="#diaspora-east-cinema">Diaspora East Cinema, Visual Identity</a></li>
+        <li><a href="#what-the-hair">What the hair?</a></li>
+        <li><a href="#tell-me">Tell me, though words fail to express it</a></li>
+        <li><a href="#gossip-love">Gossip Love</a></li>
+        <li><a href="#affairs">Affairs, Poster</a></li>
+      </ul>
+    </div>
   </header>
 
-  <script src="photo-contrast.js"></script>
+  <!-- 所有作品从上到下连续排列；每个作品一个 <article class="work">，顺序就是页面上的顺序 -->
+  <main>
+    <article class="work" id="the-uncircus">
+      <section class="work-text">
+        <h2>Album Covers</h2>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure><figcaption>The Uncircus by The Uncircus, 2026</figcaption><img src="assets/the-uncircus.jpg" alt="The Uncircus — album cover"></figure>
+        <figure><figcaption><a href="https://open.spotify.com/track/5rNjyChLa23xOgQIACKtFv" target="_blank" rel="noopener">21</a> by tigerbear, 2026</figcaption><img src="assets/21-tigerbear.jpg" data-dark="0-1" alt="21 by tigerbear — album cover"></figure>
+        <figure><figcaption><a href="https://open.spotify.com/track/2DX9svd3cE8IT6hPEnZRhn" target="_blank" rel="noopener">Before The Spin</a> by Luci Rain, 2025</figcaption><img src="assets/before-the-spin.jpg" data-dark="0-1" alt="Before The Spin by Luci Rain — album cover"></figure>
+        <figure><figcaption><a href="https://open.spotify.com/track/1b6Hk5IHTqFAtHVBUJPuVA" target="_blank" rel="noopener">Dumb Game</a> by Luci Rain feat. Hero X, 2024</figcaption><img src="assets/dumb-game.jpg" alt="Dumb Game by Luci Rain feat. Hero X — album cover"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="midnight-ambiguous-zone">
+      <section class="work-text">
+        <h2>Midnight Ambiguous Zone<br>午夜暧昧地带</h2>
+        <p>Poster for Midnight Ambiguous Zone, a screening programme organised by Diaspora East Cinema, launched during WorldPride Amsterdam, July 2026.</p>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure><img src="assets/midnight-ambiguous-zone.jpg" alt="Midnight Ambiguous Zone — poster"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="diaspora-east-cinema">
+      <section class="work-text">
+        <h2>Diaspora East Cinema, Visual Identity</h2>
+      </section>
+  
+      <section class="stills">
+        <figure><img src="assets/diaspora-east-cinema.jpg" alt="Diaspora East Cinema — visual identity"></figure>
+        <figure><img src="assets/diaspora-east-cinema-cup.jpg" data-dark="0.45-1" alt="Iced coffee in a glass printed with the Diaspora East Cinema logo"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="what-the-hair">
+      <section class="work-text">
+        <h2>What the hair?</h2>
+        <p>One of the 5.5 × 2 meter billboards created at Werkplaats Typografie for Visit Arnhem, portraying the city of Arnhem through the perspective of Barbershop Amir, a local barbershop. Presented at Printed Matter’s LA Art Book Fair, ArtCenter College of Design, South Campus, Pasadena, California, 2026.</p>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure><img src="assets/what-the-hair-3380.jpg" alt="What the hair? — billboard"></figure>
+        <figure><img src="assets/what-the-hair.jpg" alt="What the hair? — billboard"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="tell-me">
+      <section class="work-text">
+        <h2>Tell me, though words fail to express it<br>告诉我，尽管词不达意</h2>
+        <p>Documentary, 21 minutes 15 seconds. Unreleased. Presented by The Box, Werkplaats Typografie, as a private screening at LAB111, Lab 2, Amsterdam, 2026.</p>
+        <p>Film poster and title design by Lisa Lagova</p>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure class="poster"><img src="assets/poster.jpg" data-dark="0-0.53" alt="Tell me, though words fail to express it — poster"></figure>
+        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.26.34.png" data-dark="0-0.165,0.835-1" alt="Film still 1"></figure>
+        <figure><img src="assets/still-02.png" data-dark="0-0.165,0.835-1" alt="Film still 2" loading="lazy"></figure>
+        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.29.15.png" data-dark="0-0.165,0.835-1" alt="Film still 3" loading="lazy"></figure>
+        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.30.56.png" data-dark="0-0.165,0.835-1" alt="Film still 4" loading="lazy"></figure>
+        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.31.28.png" data-dark="0-0.165,0.835-1" alt="Film still 5" loading="lazy"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="gossip-love">
+      <section class="work-text">
+        <h2>Gossip Love</h2>
+        <p>This series of A0 posters explores gossip as a universal yet deeply personal form of social interaction. Conversations in various settings, particularly among non-English speakers, were recorded to capture fragments of private and intimate exchanges.</p>
+        <p>The recordings were translated into English using software, then deconstructed and reassembled into entirely new forms of gossip. By transforming these conversations, the work explores how gossip connects people while becoming fragmented, reinterpreted and distorted as it crosses linguistic and social boundaries.</p>
+        <p>One of the posters was presented in the group exhibition <a href="https://nieuweinstituut.nl/projects/forms-of-ex-change" target="_blank" rel="noopener">Forms Of (Ex-)Change</a>, Het Nieuwe Instituut, Rotterdam, 17 May – 5 October 2024.</p>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure><img src="assets/gossip-love-1.jpg" alt="Gossip Love — installation view 1"></figure>
+        <figure><img src="assets/gossip-love-2.jpg" alt="Gossip Love — installation view 2"></figure>
+        <figure><img src="assets/gossip-love-3.jpg" alt="Gossip Love — installation view 3"></figure>
+        <figure><img src="assets/gossip-love-5.jpg" alt="Gossip Love — installation view 4"></figure>
+        <figure><figcaption>One of the posters was published in <a href="https://www.instagram.com/p/Dfc3TkSFXuY/?img_index=1" target="_blank" rel="noopener">The Book: The End The Year The Show Catalogue</a>, <a href="https://www.werkplaatstypografie.org/shop/#:~:text=The%20Book%3A%20The%20End%20The%20Year%20The%20Show%20Catalogue" target="_blank" rel="noopener">ISBN 9789491003110</a>, 2026.</figcaption><img src="assets/gossip-love-book.jpg" data-dark="0-0.12,0.88-1" alt="The Book: The End The Year The Show Catalogue, open at the Gossip Love poster"></figure>
+      </section>
+    </article>
+
+    <article class="work" id="affairs">
+      <section class="work-text">
+        <h2>Affairs</h2>
+        <p>Poster for Nuno Beijinho’s exhibition <a href="https://www.instagram.com/p/DIUOMAIMMoq/?img_index=1" target="_blank" rel="noopener">Affairs</a>, 2025</p>
+      </section>
+  
+      <section class="stills side-by-side">
+        <figure><img src="assets/affairs.jpg" data-dark="0-0.08,0.46-0.55,0.93-1" alt="Affairs by Nuno Beijinho — invitation card and poster"></figure>
+      </section>
+    </article>
+  </main>
+
+  <script src="nav-contrast.js"></script>
+  <script src="song-player.js"></script>
+  <script src="work-index.js"></script>
 </body>
 </html>
