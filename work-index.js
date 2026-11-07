@@ -7,8 +7,6 @@ const list = document.querySelector('.index-list');
 function setOpen(open) {
   list.hidden = !open;
   toggle.setAttribute('aria-expanded', String(open));
-  // let nav-contrast.js recolour the titles for whatever picture they now sit on
-  dispatchEvent(new Event('scroll'));
 }
 
 toggle.addEventListener('click', event => {
