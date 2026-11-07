@@ -186,3 +186,41 @@ body > footer {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ---------- Works page: only Index follows the scroll ---------- */
+/* The name and works / info scroll away with the page; Index stays pinned at
+   the top right (lined up with the centred column on big screens), and a
+   "top" link appears once you have scrolled down. */
+.page-scroll .site-header { position: relative; }
+.page-scroll .site-index {
+  position: fixed;
+  z-index: 10;
+  top: var(--space);
+  right: max(var(--gutter), calc((100vw - 2 * 578px - var(--space)) / 2));
+}
+.back-to-top {
+  position: fixed;
+  z-index: 10;
+  bottom: var(--space);
+  right: max(var(--gutter), calc((100vw - 2 * 578px - var(--space)) / 2));
+  font-family: var(--text);
+  font-size: var(--text-size);
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.back-to-top:hover { color: #5fb4f5; }
+.back-to-top.on-dark { color: #eceae4; }
+
+/* ---------- Film stills slider ---------- */
+/* One still at a time; swipe or scroll sideways, or click for the next one.
+   The count underneath ("2 / 5") says where you are. */
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: pointer;
+}
+.slider::-webkit-scrollbar { display: none; }
+.slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
+.stills .slider-count { margin: 10px 0 0; }

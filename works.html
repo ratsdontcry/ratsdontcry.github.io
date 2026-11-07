@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="page-works">
+<body class="page-works page-scroll">
 
   <header class="site-header">
     <div class="site-id">
@@ -95,11 +95,17 @@
   
       <section class="stills side-by-side">
         <figure class="poster"><img src="assets/poster.jpg" data-dark="0-0.53" alt="Tell me, though words fail to express it — poster"></figure>
-        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.26.34.png" data-dark="0-0.165,0.835-1" alt="Film still 1"></figure>
-        <figure><img src="assets/still-02.png" data-dark="0-0.165,0.835-1" alt="Film still 2" loading="lazy"></figure>
-        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.29.15.png" data-dark="0-0.165,0.835-1" alt="Film still 3" loading="lazy"></figure>
-        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.30.56.png" data-dark="0-0.165,0.835-1" alt="Film still 4" loading="lazy"></figure>
-        <figure><img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.31.28.png" data-dark="0-0.165,0.835-1" alt="Film still 5" loading="lazy"></figure>
+        <!-- 剧照：一次显示一张，点击或左右滑动看下一张 -->
+        <figure class="slider-wrap">
+          <div class="slider" tabindex="0" aria-label="Film stills, click or swipe for the next one">
+            <img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.26.34.png" data-dark="0-0.165,0.835-1" alt="Film still 1">
+            <img src="assets/still-02.png" data-dark="0-0.165,0.835-1" alt="Film still 2">
+            <img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.29.15.png" data-dark="0-0.165,0.835-1" alt="Film still 3">
+            <img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.30.56.png" data-dark="0-0.165,0.835-1" alt="Film still 4">
+            <img src="works/告诉我,尽管词不达意/剧照/Screenshot%202026-10-15%20at%2016.31.28.png" data-dark="0-0.165,0.835-1" alt="Film still 5">
+          </div>
+          <figcaption class="slider-count">1 / 5</figcaption>
+        </figure>
       </section>
     </article>
 
@@ -132,9 +138,12 @@
     </article>
   </main>
 
+  <a class="back-to-top" href="#" hidden>top</a>
+
   <footer class="site-footer">© 2026 yinuo xuanyuan. All rights reserved.</footer>
 
   <script src="nav-contrast.js"></script>
+  <script src="still-slider.js"></script>
   <script src="song-player.js"></script>
   <script src="work-index.js"></script>
 </body>

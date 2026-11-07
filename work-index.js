@@ -35,3 +35,16 @@ if (location.hash === '#index') {
   setOpen(true);
   history.replaceState(null, '', location.pathname);
 }
+
+// "top" appears once the page has scrolled past the first screen and takes
+// you back to the very top.
+const backToTop = document.querySelector('.back-to-top');
+if (backToTop) {
+  const showWhenScrolled = () => { backToTop.hidden = scrollY < innerHeight * 0.6; };
+  addEventListener('scroll', showWhenScrolled, { passive: true });
+  showWhenScrolled();
+  backToTop.addEventListener('click', event => {
+    event.preventDefault();
+    scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}

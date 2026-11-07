@@ -3,7 +3,7 @@
 // on a dark part of a picture, where the dark gray would disappear.
 // Dark parts are marked on each <img> with data-dark="from-to,from-to",
 // as fractions of the picture's height (0 = top edge, 1 = bottom edge).
-const labels = document.querySelectorAll('.site-id a, .site-nav a, .index-toggle');
+const labels = document.querySelectorAll('.site-id a, .site-nav a, .index-toggle, .back-to-top');
 const pictures = [...document.querySelectorAll('img[data-dark]')];
 
 function darkBands(img) {
