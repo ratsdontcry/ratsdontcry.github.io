@@ -249,11 +249,13 @@ body > main {
    pictures of the works above; the glass photos stay where they were, in the
    left column underneath. On narrower screens it all stacks, poem first. */
 .poem { font-family: var(--text); font-size: var(--text-size); }
-.poem p + p { margin-top: calc(var(--leading) * 1em); }
+.poem p + p { margin-top: calc(var(--leading) * 1em); } /* one empty line between English and Chinese */
+/* the logo and brand pages: a quarter narrower than a picture column */
+.stills .logo-set { width: min(434px, 100%); }
 @media (min-width: 1202px) {
   .stills.with-poem { grid-template-columns: repeat(2, 578px); }
   .stills.with-poem > .poem { grid-column: 1; grid-row: 1; }
-  .stills.with-poem > .poem + figure { grid-column: 2; grid-row: 1; }
-  .stills.with-poem > .slider-wrap { grid-column: 1; grid-row: 2; }
+  .stills.with-poem > .logo-set { grid-column: 2; grid-row: 1; }
+  .stills.with-poem > .slider-wrap:not(.logo-set) { grid-column: 1; grid-row: 2; }
 }
 
