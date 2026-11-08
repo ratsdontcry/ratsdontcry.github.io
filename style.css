@@ -243,17 +243,15 @@ body > main {
 .slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
 .stills .slider-count { margin: 10px 0 0; }
 
-/* the Du Fu poem: Chinese and English side by side, each line kept whole;
-   on a screen too narrow for both they stack again */
-.poem {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 2.4em;
-  row-gap: calc(var(--leading) * 1em);
-  width: max-content;
-  max-width: calc(100vw - 2 * var(--gutter));
-  margin-top: calc(var(--leading) * 1em);
+/* the Du Fu poem: English above Chinese, one empty line between them. It sits
+   first in the pictures block: on a window wide enough (poem + gap + 578px
+   logo + margins) it stands to the left of the logo poster and the glass
+   photos line up under the logo; on narrower screens it sits above them. */
+.poem { font-family: var(--text); font-size: var(--text-size); }
+.poem p + p { margin-top: calc(var(--leading) * 1em); }
+@media (min-width: 1060px) {
+  .stills.with-poem { grid-template-columns: max-content 578px; column-gap: 2.4em; }
+  .stills.with-poem > * { grid-column: 2; }
+  .stills.with-poem > .poem { grid-column: 1; grid-row: 1; }
 }
-.poem p { margin: 0; }
-.work-text .poem p + p { margin-top: 0; }
 
