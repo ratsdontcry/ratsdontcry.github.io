@@ -243,15 +243,17 @@ body > main {
 .slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
 .stills .slider-count { margin: 10px 0 0; }
 
-/* the Du Fu poem: English above Chinese, one empty line between them. It sits
-   first in the pictures block: on a window wide enough (poem + gap + 578px
-   logo + margins) it stands to the left of the logo poster and the glass
-   photos line up under the logo; on narrower screens it sits above them. */
+/* the Du Fu poem: English above Chinese, one empty line between them. On a
+   window wide enough for the two-picture grid (1202px) the poem fills the left
+   column and the logo poster sits in the right column, lined up with the right
+   pictures of the works above; the glass photos stay where they were, in the
+   left column underneath. On narrower screens it all stacks, poem first. */
 .poem { font-family: var(--text); font-size: var(--text-size); }
 .poem p + p { margin-top: calc(var(--leading) * 1em); }
-@media (min-width: 1060px) {
-  .stills.with-poem { grid-template-columns: max-content 578px; column-gap: 2.4em; }
-  .stills.with-poem > * { grid-column: 2; }
+@media (min-width: 1202px) {
+  .stills.with-poem { grid-template-columns: repeat(2, 578px); }
   .stills.with-poem > .poem { grid-column: 1; grid-row: 1; }
+  .stills.with-poem > .poem + figure { grid-column: 2; grid-row: 1; }
+  .stills.with-poem > .slider-wrap { grid-column: 1; grid-row: 2; }
 }
 
