@@ -250,8 +250,14 @@ body > main {
    left column underneath. On narrower screens it all stacks, poem first. */
 .poem { font-family: var(--text); font-size: var(--text-size); }
 .poem p + p { margin-top: calc(var(--leading) * 1em); } /* one empty line between English and Chinese */
-/* the logo and brand pages: a quarter narrower than a picture column */
-.stills .logo-set { width: min(434px, 100%); }
+/* the glass photos: a quarter narrower than a picture column */
+.stills.with-poem > .slider-wrap:not(.logo-set) { width: min(434px, 100%); }
+/* the poem drawn as a swallow (poem-swallow.js places every line) */
+.poem.swallow { position: relative; }
+.poem.swallow br { display: none; }
+.poem.swallow p + p { margin-top: 0; }
+.poem.swallow .l { position: absolute; white-space: nowrap; }
+.poem.swallow .poem-cn .l { writing-mode: vertical-rl; letter-spacing: 0.1em; }
 @media (min-width: 1202px) {
   .stills.with-poem { grid-template-columns: repeat(2, 578px); }
   .stills.with-poem > .poem { grid-column: 1; grid-row: 1; }
