@@ -1,83 +1,105 @@
-// Diaspora East Cinema: on a wide window the Du Fu poem is set as a swallow
-// seen from below. The six English lines are the two wings: each line is a
-// feather fanning out from the body, the first three to the left, the last
-// three to the right, steeper towards the top. The three Chinese lines,
-// written vertically, are the body and the forked tail. On narrower screens
-// the poem stays a plain list of lines, one empty line between each.
-const WIDE = matchMedia('(min-width: 1202px)');
-const ROOT_GAP = 28;   // space between the wing roots and the body
-const ROOT_STEP = 26;  // the feathers' roots sit this far apart down the body
-const rad = deg => deg * Math.PI / 180;
+// Diaspora East Cinema: the Du Fu poem is poured into the silhouette of a
+// swallow, a calligram. The swallow is drawn as a path (seen from below,
+// wings spread, forked tail); every text row inside it is cut into the
+// pieces that fall inside the bird, and the poem (English, then Chinese)
+// runs through those pieces from top to bottom, letter after letter, with
+// no regard for where the poem's own lines break. The type is small (a 64th
+// of the width) and the poem starts again from the top until the bird is
+// full. The plain lines stay in the page for screen readers and as the
+// fallback when this script does not run.
+
+// swallow outline, right half, in a 600 x 420 box; the left half is mirrored
+const HALF = [
+  [300, 66], [318, 70], [331, 86], [335, 110],                                    // head
+  [370, 98], [420, 76], [470, 54], [520, 36], [565, 22], [600, 12],                // wing, leading edge
+  [586, 40], [556, 72], [516, 106], [470, 142], [425, 174], [382, 200], [351, 216], // wing, trailing edge
+  [346, 242], [340, 268],                                                         // body
+  [356, 306], [370, 352], [382, 396], [389, 420],                                 // tail feather
+  [370, 414], [348, 372], [324, 334], [300, 308],                                 // inside of the fork
+];
+const BOX_W = 600, BOX_H = 420;
+const OUTLINE = [...HALF, ...HALF.slice(1, -1).reverse().map(([x, y]) => [BOX_W - x, y])];
+const FONT = '"Times New Roman", Times, serif';
+const LEADING = 1.12;
 
 document.querySelectorAll('.poem').forEach(poem => {
-  const en = [...poem.querySelectorAll('.poem-en .l')];
-  const cn = [...poem.querySelectorAll('.poem-cn .l')];
-  if (en.length !== 6 || cn.length !== 3) return;
+  const lines = [...poem.querySelectorAll('.l')].map(l => l.textContent.trim());
+  if (!lines.length) return;
+  const text = lines.join('  ') + '    ';
 
-  function reset() {
-    poem.classList.remove('swallow');
-    poem.style.height = '';
-    [...en, ...cn].forEach(l => { l.style.cssText = ''; });
+  const art = document.createElement('div');
+  art.className = 'poem-art';
+  art.setAttribute('aria-hidden', 'true');
+  poem.appendChild(art);
+  poem.classList.add('calligram');
+
+  const measure = document.createElement('canvas').getContext('2d');
+
+  // the bird as a pixel mask at the size it is shown
+  function maskFor(w, h) {
+    const c = document.createElement('canvas');
+    c.width = Math.ceil(w); c.height = Math.ceil(h);
+    const x = c.getContext('2d');
+    x.scale(w / BOX_W, h / BOX_H);
+    x.beginPath();
+    OUTLINE.forEach(([px, py], i) => (i ? x.lineTo(px, py) : x.moveTo(px, py)));
+    x.closePath(); x.fill();
+    const data = x.getImageData(0, 0, c.width, c.height).data;
+    return (px, py) => px >= 0 && py >= 0 && px < c.width && py < c.height && data[(py * c.width + px) * 4 + 3] > 127;
+  }
+
+  // the stretches of one text row (top y, height lh) that lie inside the bird
+  function spans(inside, w, y, lh) {
+    const ys = [y + 1, y + lh / 2, y + lh - 1].map(Math.round);
+    const out = [];
+    let start = null;
+    for (let px = 0; px <= w; px++) {
+      const ok = px < w && ys.every(py => inside(px, py));
+      if (ok && start === null) start = px;
+      if (!ok && start !== null) { if (px - start > 4) out.push([start, px]); start = null; }
+    }
+    return out;
+  }
+
+  // pour the poem, round and round, into every row piece of the bird
+  function pour(inside, w, h, size) {
+    measure.font = `${size}px ${FONT}`;
+    const lh = size * LEADING;
+    const pieces = [];
+    let i = 0;
+    for (let y = 0; y + lh <= h; y += lh) {
+      for (const [x0, x1] of spans(inside, w, y, lh)) {
+        let t = '', used = 0;
+        for (;;) {
+          const ch = text[i % text.length];
+          const cw = measure.measureText(ch).width;
+          if (used + cw > x1 - x0) break;
+          t += ch; used += cw; i++;
+        }
+        if (t) pieces.push({ x: x0, y, t });
+      }
+    }
+    return pieces;
   }
 
   function layout() {
-    reset();
-    if (!WIDE.matches) return;
-    poem.classList.add('swallow');
-    const W = poem.clientWidth;
-    const lineH = en[0].offsetHeight;
-    const w = en.map(l => l.offsetWidth);
-
-    // angle that makes a line of width lw fit in the room it has (degrees)
-    const fit = (lw, room) => lw <= room ? 0 : Math.acos(room / lw) * 180 / Math.PI;
-
-    // left wing: lines 1-3, top feather steepest; the body sits just right
-    // of the widest left feather
-    const leftA = [36, 24, 12];
-    const leftNeed = Math.max(...w.slice(0, 3).map((lw, i) => lw * Math.cos(rad(leftA[i]))));
-    const bodyX = Math.min(leftNeed + ROOT_GAP, W * 0.62);
-    // right wing: lines 4-6, steepened where needed to stay inside the column
-    const room = W - bodyX - ROOT_GAP;
-    const a6 = Math.max(18, fit(w[5], room));
-    const a5 = Math.max(30, fit(w[4], room), a6 + 8);
-    const a4 = Math.max(40, fit(w[3], room), a5 + 8);
-    const rightA = [a4, a5, a6];
-
-    // the highest feather tip decides where the roots start
-    const rise = Math.max(
-      ...w.slice(0, 3).map((lw, i) => lw * Math.sin(rad(leftA[i]))),
-      ...w.slice(3).map((lw, i) => lw * Math.sin(rad(rightA[i])))
-    );
-    const rootTop = rise + lineH;
-
-    en.forEach((l, i) => {
-      const left = i < 3;
-      const k = left ? i : i - 3;
-      const a = left ? leftA[k] : rightA[k];
-      const y = rootTop + k * ROOT_STEP - lineH;
-      Object.assign(l.style, left
-        ? { left: `${bodyX - ROOT_GAP - w[i]}px`, top: `${y}px`, transformOrigin: '100% 100%', transform: `rotate(${a}deg)` }
-        : { left: `${bodyX + ROOT_GAP}px`, top: `${y}px`, transformOrigin: '0 100%', transform: `rotate(${-a}deg)` });
-    });
-
-    // body and tail: Chinese written top to bottom, read right to left.
-    // Line 2 is the body, starting a little above the wings (the head);
-    // lines 1 and 3 are the two tail feathers, splaying out below.
-    const colW = cn[0].offsetWidth;
-    const bodyTop = rootTop - 2 * lineH;
-    const tailTop = rootTop + 3 * ROOT_STEP;
-    const place = (l, x, top, a) => Object.assign(l.style, {
-      left: `${x - colW / 2}px`, top: `${top}px`, transformOrigin: '50% 0', transform: `rotate(${a}deg)`,
-    });
-    place(cn[1], bodyX, bodyTop, 0);
-    place(cn[0], bodyX + colW * 1.4, tailTop, -14);
-    place(cn[2], bodyX - colW * 1.4, tailTop, 14);
-
-    const tailLen = Math.max(cn[0].offsetHeight, cn[2].offsetHeight);
-    poem.style.height = `${Math.ceil(Math.max(tailTop + tailLen * Math.cos(rad(14)), bodyTop + cn[1].offsetHeight)) + 8}px`;
+    const w = poem.clientWidth;
+    const h = w * BOX_H / BOX_W;
+    const size = Math.max(6.5, w / 64);
+    const pieces = pour(maskFor(w, h), w, h, size);
+    art.style.height = `${h}px`;
+    art.style.fontSize = `${size}px`;
+    art.style.lineHeight = `${size * LEADING}px`;
+    art.replaceChildren(...pieces.map(p => {
+      const s = document.createElement('span');
+      s.textContent = p.t;
+      s.style.cssText = `left:${p.x}px;top:${p.y}px`;
+      return s;
+    }));
   }
 
-  WIDE.addEventListener('change', layout);
+  let timer;
+  addEventListener('resize', () => { clearTimeout(timer); timer = setTimeout(layout, 100); });
   if (document.fonts) document.fonts.ready.then(layout);
   layout();
 });
