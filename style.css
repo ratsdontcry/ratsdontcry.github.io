@@ -222,5 +222,6 @@ body > footer {
   cursor: pointer;
 }
 .slider::-webkit-scrollbar { display: none; }
+.slider { align-items: flex-start; } /* pictures of different heights keep their own shape */
 .slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
 .stills .slider-count { margin: 10px 0 0; }
