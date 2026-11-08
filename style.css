@@ -10,10 +10,14 @@
      window bigger leaves everything as it is, only adds empty space. */
   --gutter: 16px;
   --space: 14px; /* top margin of the page; also used between nav and pictures, and between pictures */
-  --text-size: 14.5px; /* every bit of text on the site */
+  /* Type follows ificantdance.org: Times New Roman, one size for everything
+     that never changes with the window (16px), lines at 1.2, no italics anywhere,
+     paragraphs split by one empty line. */
+  --text-size: 16px;
+  --leading: 1.2;
   --serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
   --serif-cn: "Noto Serif SC", "Songti SC", "STSong", serif;
-  --text: "Helvetica Neue", Helvetica, Arial, sans-serif; /* font for all visible text */
+  --text: "Times New Roman", Times, serif; /* font for all visible text */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +30,7 @@ body {
   font-family: var(--serif);
   font-size: 17px;
   font-variant-numeric: lining-nums;
-  line-height: 1.5;
+  line-height: var(--leading);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -89,7 +93,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Works page ---------- */
 /* a work scrolled to from the Index lands just below the fixed nav row */
-.work { scroll-margin-top: calc(2 * var(--space) + 1.5 * var(--text-size)); /* one nav line below the top */ }
+.work { scroll-margin-top: calc(2 * var(--space) + var(--leading) * var(--text-size)); /* one nav line below the top */ }
 /* old title list (no longer used on Works) */
 .work-list { list-style: none; }
 .work-list li + li { margin-top: 6px; } /* a little air between work titles */
@@ -102,8 +106,10 @@ a { color: inherit; text-decoration: none; }
   font-size: var(--text-size);
 }
 .work-text h1,
-.work-text h2 { font-size: inherit; font-weight: 400; margin-bottom: 10px; }
-.work-text p + p { margin-top: 10px; }
+.work-text h2 { font-size: inherit; font-weight: 400; margin-bottom: calc(var(--leading) * 1em); }
+.work-text p + p { margin-top: calc(var(--leading) * 1em); }
+/* no italics on the site, not even for <em> or the browser default ones */
+em, i, cite, address { font-style: normal; }
 /* a title with no description under it (captions sit on the pictures instead):
    keep the same 10px gap to the next line as title-to-description elsewhere */
 .work-text h1:last-child,
@@ -162,25 +168,12 @@ html.page-photo {
 /* name in porcelain white, sampled from the plate in the photo */
 .page-photo .site-id a { color: #eceae4; }
 
-/* ---------- Footer: copyright line at the very bottom of every page ---------- */
-/* body is a column so the footer sits at the bottom of the window even on
-   pages with little or no content (home, info) */
-body { min-height: 100vh; display: flex; flex-direction: column; }
-.site-footer {
-  margin-top: auto;
-  padding: var(--space) var(--gutter);
-  font-family: var(--text);
-  font-size: var(--text-size);
-}
-.page-photo .site-footer { color: #eceae4; }
-
 /* ---------- Big screens: keep everything in a centred column ---------- */
 /* The widest layout is two 578px pictures side by side plus the gap and the
-   side margins (1202px). On wider windows the header, content and footer stay
+   side margins (1202px). On wider windows the header and content stay
    that wide and sit in the middle instead of hugging the left edge. */
 body > header,
-body > main,
-body > footer {
+body > main {
   width: 100%;
   max-width: calc(2 * 578px + var(--space) + 2 * var(--gutter));
   margin-left: auto;
@@ -225,3 +218,17 @@ body > footer {
 .slider { align-items: flex-start; } /* pictures of different heights keep their own shape */
 .slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
 .stills .slider-count { margin: 10px 0 0; }
+
+/* the Du Fu poem: Chinese and English side by side, each line kept whole;
+   on a screen too narrow for both they stack again */
+.poem {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2.4em;
+  row-gap: calc(var(--leading) * 1em);
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gutter));
+  margin-top: calc(var(--leading) * 1em);
+}
+.poem p { margin: 0; }
+.work-text .poem p + p { margin-top: 0; }
