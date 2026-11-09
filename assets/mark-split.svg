@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 25" preserveAspectRatio="none">
+  <!-- a narrow patch of the Index list, about one key wide, split side by
+       side: white on the left, black on the right, in a hairline frame, with
+       a thin white line across the black half and a thin black line across
+       the white half, at different heights -->
+  <rect x="0.5" y="0.5" width="13" height="24" fill="#fff" stroke="#000" stroke-width="1"/>
+  <rect x="7" y="0" width="7" height="25" fill="#000"/>
+  <rect x="7" y="7" width="7" height="1" fill="#fff"/>
+  <rect x="0" y="16" width="7" height="1" fill="#000"/>
+</svg>

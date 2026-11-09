@@ -6,7 +6,7 @@
   <title>Diaspora East Cinema — Yinuo Xuanyuan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="page-works">
@@ -24,32 +24,27 @@
   <main>
     <section class="work-text">
       <h1>Diaspora East Cinema, Visual Identity</h1>
-      <p>Visual identity for Diaspora East Cinema, drawing on Du Fu’s Tang Dynasty poem <em>Twin Swallows</em> 双燕.</p>
+      <p>Visual identity for Diaspora East Cinema, drawing on Du Fu’s Tang Dynasty poem <em class="poem-title">Twin Swallows 双燕</em>.</p>
     </section>
 
-    <section class="stills with-poem">
+    <section class="stills diaspora-set">
       <!-- logo 和品牌手册：一次显示一张，点击或左右滑动看下一张 -->
       <figure class="slider-wrap logo-set">
         <div class="slider" tabindex="0" aria-label="Logo and brand guidelines, click or swipe for the next one">
-          <img src="assets/diaspora-east-cinema-logo.jpg" alt="Diaspora East Cinema — visual identity">
-          <img src="assets/diaspora-east-cinema-manual-2.jpg" alt="Diaspora East Cinema brand guidelines — construction drawing of the logo on a grid">
-          <img src="assets/diaspora-east-cinema-manual-3.jpg" alt="Diaspora East Cinema brand guidelines — clear space around the logo">
-          <img src="assets/diaspora-east-cinema-manual-4.jpg" alt="Diaspora East Cinema brand guidelines — colour palette: Swallow Green, Mud Magenta, Rice Paper">
-          <img src="assets/diaspora-east-cinema-manual-5.jpg" alt="Diaspora East Cinema brand guidelines — colour versions of the logo">
-          <img src="assets/diaspora-east-cinema-manual-6.jpg" alt="Diaspora East Cinema brand guidelines — logo sizes">
+          <img src="assets/web/diaspora-east-cinema-logo.jpg" alt="Diaspora East Cinema — visual identity">
+          <img src="assets/web/diaspora-east-cinema-manual-2.jpg" alt="Diaspora East Cinema brand guidelines — construction drawing of the logo on a grid">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-manual-3.jpg" alt="Diaspora East Cinema brand guidelines — clear space around the logo">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-manual-4.jpg" alt="Diaspora East Cinema brand guidelines — colour palette: Swallow Green, Mud Magenta, Rice Paper">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-manual-5.jpg" alt="Diaspora East Cinema brand guidelines — colour versions of the logo">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-manual-6.jpg" alt="Diaspora East Cinema brand guidelines — logo sizes">
         </div>
         <figcaption class="slider-count">1 / 6</figcaption>
       </figure>
-      <!-- 杜甫的诗：填进一只燕子的剪影里；宽屏时在 logo 右边，窄屏时在 logo 下面 -->
-      <div class="poem">
-        <p class="poem-en"><span class="l">Living on the road, I start at twin swallows;</span><br><br><span class="l">Mud in their beaks, they enter this hall.</span><br><br><span class="l">They too would flee from damp and heat that follow,</span><br><br><span class="l">And pass through warmth and cold through all.</span><br><br><span class="l">Now autumn holds both earth and sky so still;</span><br><br><span class="l">I too have left my far and foreign will.</span></p>
-        <p class="poem-cn"><span class="l">旅食惊双燕，衔泥入此堂。</span><br><br><span class="l">应同避燥湿，且复过炎凉。</span><br><br><span class="l">今秋天地在，吾亦离殊方。</span></p>
-      </div>
       <!-- 杯子照片：一次显示一张，点击或左右滑动看下一张 -->
       <figure class="slider-wrap">
         <div class="slider" tabindex="0" aria-label="Glasses with the logo, click or swipe for the next one">
-          <img src="assets/diaspora-east-cinema-cup-2.jpg" alt="Wine glasses printed with the Diaspora East Cinema logo">
-          <img src="assets/diaspora-east-cinema-cup.jpg" data-dark="0.45-1" alt="Iced coffee in a glass printed with the Diaspora East Cinema logo">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-cup-2.jpg" alt="Wine glasses printed with the Diaspora East Cinema logo">
+          <img loading="lazy" src="assets/web/diaspora-east-cinema-cup.jpg" data-dark="0.45-1" alt="Iced coffee in a glass printed with the Diaspora East Cinema logo">
         </div>
         <figcaption class="slider-count">1 / 2</figcaption>
       </figure>
@@ -58,6 +53,5 @@
 
   <script src="nav-contrast.js"></script>
   <script src="still-slider.js"></script>
-  <script src="poem-swallow.js"></script>
 </body>
 </html>

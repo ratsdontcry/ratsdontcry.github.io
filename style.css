@@ -17,7 +17,10 @@
   --leading: 1.2;
   --serif: "Cormorant Garamond", Garamond, "Times New Roman", serif;
   --serif-cn: "Noto Serif SC", "Songti SC", "STSong", serif;
-  --text: "Times New Roman", Times, serif; /* font for all visible text */
+  /* font for all visible text: Times New Roman for Latin letters; Chinese
+     characters fall through to Noto Serif SC (Source Han Serif, 思源宋体), a
+     professional Song typeface whose weight and contrast sit well with Times */
+  --text: "Times New Roman", Times, "Noto Serif SC", "Songti SC", serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -72,39 +75,67 @@ a { color: inherit; text-decoration: none; }
   top: calc(100% + 10px);
   white-space: nowrap;
 }
-/* the opened list sits on a see-through purple-red full of soap bubbles that
-   slowly rise. Each bubble is a thin pale ring with a small shine; they repeat
-   in a 150 x 200px tile that drifts upwards, so the bubbles never run out. The
-   half see-through base keeps the white titles readable over light pictures. */
-.index-list {
-  --bubble: rgba(236, 234, 228, 0.5);
-  --inside: rgba(236, 234, 228, 0.07);
-  --shine: rgba(255, 255, 255, 0.75);
-  padding: 4px 0;
-  background-color: rgba(66, 28, 47, 0.62);
-  background-image:
-    radial-gradient(circle at 26px 34px, var(--shine) 0 2px, transparent 2.5px),
-    radial-gradient(circle at 32px 40px, var(--inside) 0 13px, var(--bubble) 14px, transparent 15px),
-    radial-gradient(circle at 108px 72px, var(--shine) 0 1.5px, transparent 2px),
-    radial-gradient(circle at 112px 76px, var(--inside) 0 7px, var(--bubble) 8px, transparent 9px),
-    radial-gradient(circle at 62px 128px, var(--shine) 0 2.5px, transparent 3px),
-    radial-gradient(circle at 72px 138px, var(--inside) 0 19px, var(--bubble) 20px, transparent 21px),
-    radial-gradient(circle at 132px 168px, var(--shine) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 134px 170px, var(--inside) 0 4px, var(--bubble) 5px, transparent 6px),
-    radial-gradient(circle at 12px 186px, var(--inside) 0 5px, var(--bubble) 6px, transparent 7px);
-  background-size: 150px 200px;
-  animation: bubbles-rise 9s linear infinite;
+/* the opened list: black and white stripes, one per title (white with black
+   type, then black with white type), all as wide as the longest title, each
+   in a thin frame of the opposite colour. The empty part of each stripe, left
+   of its title, is filled edge to edge with black-and-white patterns, and on
+   some rows a small mark sits at the inner end of the pattern, next to the
+   title: a patchwork of chequers, piano keys, lines, a taiji, a split bar,
+   a chessboard and a barcode. */
+.index-list li a {
+  display: flex;
+  gap: 10px;
+  padding: 3px 10px;
 }
-@keyframes bubbles-rise {
-  from { background-position: 0 0; }
-  to   { background-position: 0 -200px; }
+.index-list li a::before {
+  content: "";
+  flex: 1 0 48px;
+  margin: -3px 0 -3px -10px; /* the pattern runs to the stripe's edges */
 }
-/* people who switch off motion get still bubbles */
-@media (prefers-reduced-motion: reduce) {
-  .index-list { animation: none; }
+.site-header .index-list li:nth-child(odd) a { background: #fff; color: #000; border: 1px solid #000; }
+.site-header .index-list li:nth-child(even) a { background: #000; color: #fff; border: 1px solid #fff; }
+.site-header .index-list a:hover { text-decoration: underline; text-underline-offset: 2px; }
+/* 1: small chequers, then four narrow taiji side by side next to the title */
+.index-list li:nth-child(1) a::before {
+  background:
+    url("assets/mark-taiji.svg") right center / 20px 100% no-repeat,
+    url("assets/mark-taiji.svg") right 20px center / 20px 100% no-repeat,
+    url("assets/mark-taiji.svg") right 40px center / 20px 100% no-repeat,
+    url("assets/mark-taiji.svg") right 60px center / 20px 100% no-repeat,
+    repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 12px 12px;
 }
-.index-list a:hover { color: #fff27f; }
-.index-list li a { display: block; padding: 4px 12px; }
+/* 2 and 6: piano keys, white keys with thin lines between, black keys on top */
+.index-list li:nth-child(2) a::before,
+.index-list li:nth-child(6) a::before {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 6px, #000 6px 11px, transparent 11px 13px) 0 0 / 100% 60% no-repeat,
+    repeating-linear-gradient(90deg, #fff 0 12px, #000 12px 13px);
+}
+/* 3: thin horizontal lines, with the split bar (and its two lines) next to the title */
+.index-list li:nth-child(3) a::before {
+  background:
+    url("assets/mark-split.svg") right center / 14px 100% no-repeat,
+    repeating-linear-gradient(0deg, #000 0 2px, #fff 2px 5px);
+}
+/* 4: big chequers */
+.index-list li:nth-child(4) a::before { background: repeating-conic-gradient(#fff 0 25%, #000 0 50%) 0 0 / 20px 20px; }
+/* 5: a chessboard, small squares in a hairline frame */
+.index-list li:nth-child(5) a::before {
+  background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 12.5px 12.5px;
+  box-shadow: inset 0 0 0 1px #000;
+}
+/* 7: tiny chequers, with a barcode of thick and thin bars next to the title */
+.index-list li:nth-child(7) a::before {
+  background:
+    linear-gradient(90deg,
+      #000 0 4px, #fff 4px 6px, #000 6px 7px, #fff 7px 8px,
+      #000 8px 9px, #fff 9px 12px, #000 12px 14px, #fff 14px 15px,
+      #000 15px 16px, #fff 16px 18px, #000 18px 23px, #fff 23px 24px,
+      #000 24px 25px, #fff 25px 27px, #000 27px 28px, #fff 28px 29px,
+      #000 29px 31px, #fff 31px 34px, #000 34px 35px, #fff 35px 36px,
+      #000 36px 40px) right center / 40px 100% no-repeat,
+    repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 7px 7px;
+}
 .site-id > :not(.site-name) { grid-row: 2; grid-column: 1 / -1; }
 .site-name,
 .site-nav a { text-transform: lowercase; }
@@ -120,6 +151,10 @@ a { color: inherit; text-decoration: none; }
 .site-index .on-dark { color: #eceae4; }
 .site-header a:hover { color: #fff27f; }
 .page-works .site-header a:hover { color: #fff27f; }
+/* where you are stays yellow: the name on the home page, works or info on
+   their pages, and index while its list is open */
+.site-header a[aria-current="page"],
+.site-header .index-toggle[aria-expanded="true"] { color: #fff27f; }
 
 /* ---------- Works page ---------- */
 /* a work scrolled to from the Index lands just below the fixed nav row */
@@ -131,7 +166,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Work detail pages: title and description above the pictures ---------- */
 .work-text {
   max-width: calc(578px + 2 * var(--gutter)); /* same width as the pictures */
-  padding: 0 var(--gutter) var(--space);
+  padding: 0 var(--gutter) 28px; /* room between the description and the pictures */
   font-family: var(--text);
   font-size: var(--text-size);
 }
@@ -140,6 +175,8 @@ a { color: inherit; text-decoration: none; }
 .work-text p + p { margin-top: calc(var(--leading) * 1em); }
 /* no italics on the site, not even for <em> or the browser default ones */
 em, i, cite, address { font-style: normal; }
+/* the one exception: the title of the Du Fu poem on Diaspora East Cinema */
+em.poem-title { font-style: italic; }
 /* a title with no description under it (captions sit on the pictures instead):
    keep the same 10px gap to the next line as title-to-description elsewhere */
 .work-text h1:last-child,
@@ -152,7 +189,7 @@ em, i, cite, address { font-style: normal; }
   display: grid;
   grid-template-columns: minmax(0, 578px);
   gap: var(--space);
-  padding: 0 var(--gutter) 56px;
+  padding: 0 var(--gutter) 96px; /* room before the next work */
 }
 
 /* a caption line above a picture, styled like the work description */
@@ -161,6 +198,12 @@ em, i, cite, address { font-style: normal; }
   font-size: var(--text-size);
   margin-bottom: 10px;
 }
+/* a caption that is a sentence about the work (Gossip Love's book) keeps the
+   same distance to its picture as a description does to the pictures below */
+.stills figcaption.caption-text { margin-bottom: 28px; }
+/* Album Covers: a cover and the next song title below it are as far apart as
+   a description and its pictures */
+.stills.covers { row-gap: 28px; }
 /* links inside captions and descriptions (song titles to Spotify, exhibition names) */
 .stills figcaption a,
 .work-text a {
@@ -243,27 +286,28 @@ body > main {
 .slider img { flex: 0 0 100%; width: 100%; scroll-snap-align: start; }
 .stills .slider-count { margin: 10px 0 0; }
 
-/* the Du Fu poem: English above Chinese, one empty line between them. On a
-   window wide enough for the two-picture grid (1202px) the poem fills the left
-   column and the logo poster sits in the right column, lined up with the right
-   pictures of the works above; the glass photos stay where they were, in the
-   left column underneath. On narrower screens it all stacks, poem first. */
-.poem { font-family: var(--text); font-size: var(--text-size); }
-.poem p + p { margin-top: calc(var(--leading) * 1em); } /* one empty line between English and Chinese */
-/* the glass photos: a quarter narrower than a picture column */
-.stills.with-poem > .slider-wrap:not(.logo-set) { width: min(434px, 100%); }
-/* the poem poured into a swallow silhouette (poem-swallow.js sets every
-   piece); the plain lines stay for screen readers */
-.poem.calligram > p {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap;
-}
-.poem-art { position: relative; font-family: var(--text); }
-.poem-art span { position: absolute; white-space: pre; }
-@media (min-width: 1202px) {
-  .stills.with-poem { grid-template-columns: repeat(2, 578px); }
-  .stills.with-poem > .logo-set { grid-column: 1; grid-row: 1; }
-  .stills.with-poem > .poem { grid-column: 2; grid-row: 1; align-self: center; }
-  .stills.with-poem > .slider-wrap:not(.logo-set) { grid-column: 1; grid-row: 2; }
+/* Diaspora East Cinema: the logo set at full picture width, the glass photos
+   under it a quarter narrower */
+.stills.diaspora-set > .slider-wrap:not(.logo-set) { width: min(434px, 100%); }
+
+/* The two flat posters (Midnight Ambiguous Zone, Tell me) would otherwise
+   fill their picture box edge to edge and feel bigger than the photographed
+   and scanned work around them. They sit in a near-black frame instead, like
+   the scanned book on Gossip Love: same box, the poster drawn inside it. */
+.framed img {
+  padding: 9%;
+  background: #121212;
 }
 
+/* Home page: a thin strip down the right edge of the window, one column of
+   a long run of piano keys and one group of black and white blocks, with gaps (assets/edge-strip.svg, repeated top to bottom), like the edge of
+   a printed contents page. The page keeps clear of it. */
+.edge-strip {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  background: url("assets/edge-strip.svg") 0 0 / 10px 720px repeat-y;
+}
+body.home { padding-right: 10px; }

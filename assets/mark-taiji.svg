@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 25" preserveAspectRatio="none">
+  <!-- taiji (yin and yang), drawn as a tall narrow oval, filling a patch of
+       the Index list: white on the left, black on the right, the taiji between.
+       The white lobe carries a black dot, the black lobe a white one. -->
+  <rect width="10" height="25" fill="#fff"/>
+  <rect x="10" width="10" height="25" fill="#000"/>
+  <g transform="translate(10 12.5) scale(0.8 1)">
+    <circle r="11.5" fill="#fff" stroke="#000" stroke-width="0.9"/>
+    <path d="M0 -11.5 A11.5 11.5 0 0 1 0 11.5 A5.75 5.75 0 0 1 0 0 A5.75 5.75 0 0 0 0 -11.5 Z" fill="#000"/>
+    <circle cy="-5.75" r="2" fill="#000"/>
+    <circle cy="5.75" r="2" fill="#fff"/>
+  </g>
+</svg>
