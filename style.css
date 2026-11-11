@@ -79,9 +79,16 @@ a { color: inherit; text-decoration: none; }
   width: max-content;
   max-width: calc(100vw - 2 * var(--gutter));
 }
+/* on a phone the titles come first: each stays on one line, and the
+   patterns to their left get narrower to make room */
 @media (max-width: 480px) {
   .index-list { right: 0; }
-  .index-list li a { white-space: normal; align-items: stretch; }
+  .index-list li a { gap: 8px; padding: 3px 8px; }
+  .index-list li a::before { flex-basis: 16px; margin-left: -8px; }
+}
+/* the smallest phones: slightly smaller titles so the longest still fits on one line */
+@media (max-width: 360px) {
+  .index-list { font-size: 14px; }
 }
 /* the opened list: black and white stripes, one per title (white with black
    type, then black with white type), all as wide as the longest title, each
@@ -215,6 +222,9 @@ em.poem-title { font-style: italic; }
 /* a caption that is a sentence about the work (Gossip Love's book) keeps the
    same distance to its picture as a description does to the pictures below */
 .stills figcaption.caption-text { margin-bottom: 28px; }
+/* ...and sits as far below the picture above it: the 14px gap between
+   pictures plus 14px makes the same 28px */
+.stills figure:has(> figcaption.caption-text:first-child) { margin-top: 14px; }
 /* Album Covers: a cover and the next song title below it are as far apart as
    a description and its pictures */
 .stills.covers { row-gap: 28px; }
@@ -317,7 +327,7 @@ body > main {
   background: #121212;
 }
 
-/* Home page: a thin strip down the right edge of the window, one column of
+/* Home and Info pages: a thin strip down the right edge of the window, one column of
    a long run of piano keys and one group of black and white blocks, with gaps (assets/edge-strip.svg, repeated top to bottom), like the edge of
    a printed contents page. The page keeps clear of it. */
 .edge-strip {
@@ -328,4 +338,4 @@ body > main {
   width: 10px;
   background: url("assets/edge-strip.svg") 0 0 / 10px 720px repeat-y;
 }
-body.home { padding-right: 10px; }
+body.home, body.has-edge-strip { padding-right: 10px; }

@@ -27,11 +27,24 @@ function copyOf(img) {
 function brightnessAt(px, py) {
   const img = document.elementsFromPoint(px, py).find(el => el.tagName === 'IMG');
   if (!img) return null;
+  // Framed posters have a wide black padding around the picture. Over that
+  // frame the label sits on the frame's own colour, not on the picture, so
+  // read the picture only inside its padding.
+  const r = img.getBoundingClientRect();
+  const s = getComputedStyle(img);
+  const left = r.left + parseFloat(s.paddingLeft) + parseFloat(s.borderLeftWidth);
+  const top = r.top + parseFloat(s.paddingTop) + parseFloat(s.borderTopWidth);
+  const width = r.right - parseFloat(s.paddingRight) - parseFloat(s.borderRightWidth) - left;
+  const height = r.bottom - parseFloat(s.paddingBottom) - parseFloat(s.borderBottomWidth) - top;
+  if (px < left || px > left + width || py < top || py > top + height) {
+    const bg = s.backgroundColor.match(/[\d.]+/g);
+    if (!bg || (bg.length > 3 && +bg[3] === 0)) return null; // no frame colour: the page shows through
+    return 0.299 * bg[0] + 0.587 * bg[1] + 0.114 * bg[2];
+  }
   const copy = copyOf(img);
   if (!copy) return null;
-  const r = img.getBoundingClientRect();
-  const ix = Math.min(copy.w - 1, Math.max(0, Math.floor((px - r.left) / r.width * copy.w)));
-  const iy = Math.min(copy.h - 1, Math.max(0, Math.floor((py - r.top) / r.height * copy.h)));
+  const ix = Math.min(copy.w - 1, Math.max(0, Math.floor((px - left) / width * copy.w)));
+  const iy = Math.min(copy.h - 1, Math.max(0, Math.floor((py - top) / height * copy.h)));
   const [red, green, blue] = copy.x.getImageData(ix, iy, 1, 1).data;
   return 0.299 * red + 0.587 * green + 0.114 * blue;
 }
