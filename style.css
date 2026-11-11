@@ -74,25 +74,13 @@ a { color: inherit; text-decoration: none; }
   right: -12px;
   top: calc(100% + 10px);
   white-space: nowrap;
-  /* never wider than the screen: on a phone a long title wraps onto a second
-     line instead of running off the left edge */
-  width: max-content;
-  max-width: calc(100vw - 2 * var(--gutter));
 }
-/* on a phone the titles come first: each stays on one line, and the
-   patterns to their left get narrower to make room */
+/* on a phone the titles come first: each stays on one line, the patterns to
+   their left get narrower, and the titles scale with the screen so the
+   longest one ("Tell me, though words fail to express it") always fits */
 @media (max-width: 480px) {
-  /* a fixed width (the whole screen less the margins) rather than "as wide as
-     the longest title": iPhone Safari measured that too narrow and the
-     titles ran out of their stripes */
-  .index-list { right: 0; width: calc(100vw - 2 * var(--gutter)); }
-  .index-list li a { gap: 8px; padding: 3px 8px; }
-  .index-list li a::before { flex: 1 1 12px; min-width: 6px; margin-left: -8px; }
-  /* the titles scale with the screen so the longest one ("Tell me, though
-     words fail to express it") always fits inside its stripe, with room to
-     spare for phones whose Times is a little wider */
-  .index-list { font-size: min(16px, calc((100vw - 74px) / 19)); }
-  .index-list li a { white-space: nowrap; }
+  .index-list { right: 0; font-size: min(16px, calc((100vw - 60px) / 18)); }
+  .site-header .index-list li a { padding-left: 16px; }
 }
 /* the opened list: black and white stripes, one per title (white with black
    type, then black with white type), all as wide as the longest title, each
@@ -101,21 +89,37 @@ a { color: inherit; text-decoration: none; }
    some rows a small mark sits at the inner end of the pattern, next to the
    title: a patchwork of chequers, piano keys, lines, a taiji, a split bar,
    a chessboard and a barcode. */
+/* How a stripe is built: the list is as wide as its longest row, and each
+   row is a block whose title (in a <span>) sits at the right. The pattern
+   hangs off the left of the title and is cut off at the stripe's left edge,
+   so it fills whatever room is left, at least 48px. (An earlier flexbox
+   version measured too narrow on iPhone Safari, and titles ran out of their
+   stripes.) */
 .index-list li a {
-  display: flex;
-  gap: 10px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+  padding-left: 48px;
+}
+.index-list li a span {
+  position: relative;
+  display: inline-block;
   padding: 3px 10px;
 }
-.index-list li a::before {
+.index-list li a span::before {
   content: "";
-  flex: 1 0 48px;
-  margin: -3px 0 -3px -10px; /* the pattern runs to the stripe's edges */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%; /* ends at the span edge, 10px left of the title */
+  width: 100vw;
 }
 .site-header .index-list li:nth-child(odd) a { background: #fff; color: #000; border: 1px solid #000; }
 .site-header .index-list li:nth-child(even) a { background: #000; color: #fff; border: 1px solid #fff; }
-.site-header .index-list a:hover { text-decoration: underline; text-underline-offset: 2px; }
+.site-header .index-list a:hover span { text-decoration: underline; text-underline-offset: 2px; }
 /* 1: small chequers, then four narrow taiji side by side next to the title */
-.index-list li:nth-child(1) a::before {
+.index-list li:nth-child(1) a span::before {
   background:
     url("assets/mark-taiji.svg") right center / 20px 100% no-repeat,
     url("assets/mark-taiji.svg") right 20px center / 20px 100% no-repeat,
@@ -124,27 +128,27 @@ a { color: inherit; text-decoration: none; }
     repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 12px 12px;
 }
 /* 2 and 6: piano keys, white keys with thin lines between, black keys on top */
-.index-list li:nth-child(2) a::before,
-.index-list li:nth-child(6) a::before {
+.index-list li:nth-child(2) a span::before,
+.index-list li:nth-child(6) a span::before {
   background:
     repeating-linear-gradient(90deg, transparent 0 6px, #000 6px 11px, transparent 11px 13px) 0 0 / 100% 60% no-repeat,
     repeating-linear-gradient(90deg, #fff 0 12px, #000 12px 13px);
 }
 /* 3: thin horizontal lines, with the split bar (and its two lines) next to the title */
-.index-list li:nth-child(3) a::before {
+.index-list li:nth-child(3) a span::before {
   background:
     url("assets/mark-split.svg") right center / 14px 100% no-repeat,
     repeating-linear-gradient(0deg, #000 0 2px, #fff 2px 5px);
 }
 /* 4: big chequers */
-.index-list li:nth-child(4) a::before { background: repeating-conic-gradient(#fff 0 25%, #000 0 50%) 0 0 / 20px 20px; }
+.index-list li:nth-child(4) a span::before { background: repeating-conic-gradient(#fff 0 25%, #000 0 50%) 0 0 / 20px 20px; }
 /* 5: a chessboard, small squares in a hairline frame */
-.index-list li:nth-child(5) a::before {
+.index-list li:nth-child(5) a span::before {
   background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 12.5px 12.5px;
   box-shadow: inset 0 0 0 1px #000;
 }
 /* 7: tiny chequers, with a barcode of thick and thin bars next to the title */
-.index-list li:nth-child(7) a::before {
+.index-list li:nth-child(7) a span::before {
   background:
     linear-gradient(90deg,
       #000 0 4px, #fff 4px 6px, #000 6px 7px, #fff 7px 8px,
