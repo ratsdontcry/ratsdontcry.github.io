@@ -82,13 +82,17 @@ a { color: inherit; text-decoration: none; }
 /* on a phone the titles come first: each stays on one line, and the
    patterns to their left get narrower to make room */
 @media (max-width: 480px) {
-  .index-list { right: 0; }
+  /* a fixed width (the whole screen less the margins) rather than "as wide as
+     the longest title": iPhone Safari measured that too narrow and the
+     titles ran out of their stripes */
+  .index-list { right: 0; width: calc(100vw - 2 * var(--gutter)); }
   .index-list li a { gap: 8px; padding: 3px 8px; }
-  .index-list li a::before { flex-basis: 16px; margin-left: -8px; }
-}
-/* the smallest phones: slightly smaller titles so the longest still fits on one line */
-@media (max-width: 360px) {
-  .index-list { font-size: 14px; }
+  .index-list li a::before { flex: 1 1 12px; min-width: 6px; margin-left: -8px; }
+  /* the titles scale with the screen so the longest one ("Tell me, though
+     words fail to express it") always fits inside its stripe, with room to
+     spare for phones whose Times is a little wider */
+  .index-list { font-size: min(16px, calc((100vw - 74px) / 19)); }
+  .index-list li a { white-space: nowrap; }
 }
 /* the opened list: black and white stripes, one per title (white with black
    type, then black with white type), all as wide as the longest title, each
